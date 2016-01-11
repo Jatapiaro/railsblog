@@ -1,0 +1,20 @@
+<% @articles.each do |article| %>
+
+<h1>Articulo: <%= article.title %></h1>
+<div>
+	Cuerpo: <%= article.body %> - 
+	<%= link_to "Ver artículo", article %> - 
+	
+	<%= link_to "Editar artículo", edit_article_path(article) %> - 
+	
+	<%= link_to "Eliminar artículo",article, method: :delete , data: {confirm: "¿Estás seguro?"}%>
+	<br>
+	ArtID: <%= article.id %>
+	<br> 
+</div>
+<%end%>
+
+<br>
+<br>
+<br>
+<%= link_to "Nuevo artículo", new_article_path %>

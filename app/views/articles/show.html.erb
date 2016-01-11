@@ -1,0 +1,16 @@
+<h1><%= @article.title %></h1>
+<div>
+	<%= @article.body %>
+</div>
+
+<br>
+<br>
+<br>
+
+<%= link_to "Editar artículo", edit_article_path(@article) %>
+
+<br>
+<br>
+<br>
+
+<%= link_to "Regresar a artículos",articles_path%>
