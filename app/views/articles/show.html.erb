@@ -1,16 +1,39 @@
 <h1><%= @article.title %></h1>
 <div>
-	<%= @article.body %>
+<%unless @article.user.nil? %>
+	Publicado por: <%= @article.user.email %>	
+<% end %>
+
+<div class="field">
+	<%= image_tag @article.cover.url(:medium) %>
 </div>
 
 <br>
+	Número de visitas: <%= @article.visitsCount %>
 <br>
-<br>
+	<%= @article.body %>
 
+</div>
+
+
+<div class="field">
+
+	<h3>Comentarios</h3>
+	<%= render "comments/form" %>
+	<ul id="comments-box">
+		<% @article.comments.each do |comment| %>
+		<li>
+			<%= comment.body %> - <%= comment.user.email %>
+		</li> 
+		<% end %>
+	</ul>
+	
+</div>
+
+
+
+<div>
 <%= link_to "Editar artículo", edit_article_path(@article) %>
 
-<br>
-<br>
-<br>
-
 <%= link_to "Regresar a artículos",articles_path%>
+</div>

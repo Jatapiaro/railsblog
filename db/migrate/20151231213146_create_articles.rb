@@ -4,6 +4,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.integer :visitsCount
+      
 
       t.timestamps null: false
     end

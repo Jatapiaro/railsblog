@@ -1,8 +1,5 @@
-<h1>Welcome#index</h1>
-<h2>Hola <%= @name %></h2>
-
-
-<% [1,2,3,4].each do |n| %>
-	<p><%=n%></p>
-	<p><%= @name %></p>
-<% end %>
+<h1>Bienvenido
+	<% if user_signed_in? %>
+		<%= current_user.email %>
+	<% end %>
+</h1>

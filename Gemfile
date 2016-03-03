@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
 
+gem 'jquery-turbolinks', '~> 2.1'
+
+gem 'paperclip'
+
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

@@ -17,11 +17,24 @@
 	<% end %>
 
 	<div class="field">
+		Portada: <%= f.file_field :cover %>	
+	</div>
+
+	<div class="field">
 		<%= f.text_field :title, placeholder: "Título", class:"form-control"%>	
 	</div>
 
 	<div class="field">
-		<%= f.text_area :body, placeholder: "Escribe tú artículo", style: "height:250px", class:"form-control"%>	
+		<%= f.text_area :body, placeholder: "Escribe tú artículo", style: "height:250px", class:"form-control"%>	 
+	</div>
+
+	<div class="field">
+		<label>Categorias</label>
+		<% @categories.each do |category| %>
+			<div>
+				<%=check_box_tag "categories[]",category.id%> <%=category.name%>
+			</div>
+		<%end%>
 	</div>
 
 	<div class="field">

@@ -1,18 +1,20 @@
 class ArticlesController < ApplicationController
-
+	before_action :authenticate_user!, except: [:show,:index]
+	before_action :set_article, except: [:index,:new,:create]
 	#GET /articles
 	def index
 		##Nos permite traer todos los
 		##registros que estan en la 
 		##tabla articles
 		@articles=Article.all
-	end
+	end 
 
 	##GET /articles/:id
 	def show
+
+		@article.update_visits_count
+		@comment=Comment.new
 		##Mandas el id, de la tabla
-		@article=Article.find(params[:id])
-		render :show
 		##parametros seguido de signo de interrogacion
 		##Article.where("id LIKE ? OR title=?", params[:id],params[:title])
 
@@ -29,6 +31,7 @@ class ArticlesController < ApplicationController
 		##Se creara usando métodos de
 		##rails
 		@article=Article.new
+		@categories=Category.all
 	end
 
 	##POST /articles/create
@@ -41,8 +44,8 @@ class ArticlesController < ApplicationController
 
 		##Usando strong params
 
-		@article=Article.new(article_params)
-
+		@article=current_user.articles.new(article_params)
+		@article.categories=params[:categories] 
 		if @article.save
 			redirect_to @article
 		else
@@ -52,12 +55,10 @@ class ArticlesController < ApplicationController
 	end
 
 	def edit
-		@article=Article.find(params[:id])
 	end
 
 	def update
 		#@article.update_attributes({title: 'Nuevo titulo'})
-		@article=Article.find(params[:id])
 		if @article.update(article_params)
 		
 			redirect_to @article
@@ -68,15 +69,22 @@ class ArticlesController < ApplicationController
 	end
 
 	def destroy
-		@article=Article.find(params[:id])
 		@article.destroy ##Elimina el objeto de la db
 		redirect_to articles_path
 	end
 
 	private 
 
+	def set_article
+		@article=Article.find(params[:id])
+	end
+
 	def article_params
-		params.require(:article).permit(:title,:body)
+		params.require(:article).permit(:title,:body,:cover,:categories)
+	end
+
+	def validate_user
+		redirect_to new_user_session_path, notice: "Necesitas inicar sesión"
 	end
 
 end
